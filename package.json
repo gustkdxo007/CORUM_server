@@ -1,13 +1,26 @@
 {
+  "name": "corum",
+  "version": "0.0.1",
+  "description": "corum",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
+  },
+  "author": "we",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.18.0"
   },
   "devDependencies": {
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-react": "^7.14.3",
     "lint-staged": "^9.2.5",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "nodemon": "^1.19.1"
   },
   "lint-staged": {
     "*.{js, jsx}": [
