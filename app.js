@@ -6,10 +6,12 @@ const path = require("path");
 // const flash = require("connect-flash");
 const { posts, user } = require('./routes');
 const { sequelize } = require('./models')
+
 const app = express();
-
-
 sequelize.sync();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false })); 
 
 app.use(posts);
 app.use(user);

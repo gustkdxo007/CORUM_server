@@ -18,21 +18,13 @@ module.exports = (sequelize, DataType) => {
     },
     visit_count: {
       type: DataType.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defalutValue: 0
     },
     like_count: {
       type: DataType.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defalutValue: 0
-    },
-    // user_id: {
-    //   type: DataType.INTEGER,
-    //   allowNull: false
-    // },
-    tag_id: {
-      type: DataType.INTEGER,
-      allowNull: true
     }
   });
 };
