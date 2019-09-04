@@ -3,14 +3,20 @@ let { user, post, hashtag } = require("../models");
 module.exports = async (req, res) => {
   try {
     // 조회
-    let retrievedPost = await post.findAll({
-      attributes: ["contents", "category", "id"],
+    let retrievedPost = await post.findOne({
+      attributes: ["contents", "category", "id", "visit_count"],
       where: { id: req.params.id }
     });
-
-    console.log("joined table: ", allPosts);
-    console.log("------------------------------this is excuted 2");
-
+    let vcount = retrievedPost.dataValues.visit_count + 1;
+    await post.update(
+      {
+        visit_count: vcount
+      },
+      {
+        where: { id: req.params.id }
+      }
+    );
+    delete retrievedPost.dataValues.visit_count;
     res.status(200).json(retrievedPost);
   } catch (err) {
     console.log(err.message);

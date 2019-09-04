@@ -5,5 +5,6 @@ controller.getPost = require("./getPost");
 controller.setPost = require("./setPost");
 controller.updatePost = require("./updatePost");
 controller.deletePost = require("./deletePost");
+controller.getPostsbyCategory = require("./getPostsbyCategory");
 
 module.exports = controller;

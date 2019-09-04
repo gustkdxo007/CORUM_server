@@ -53,9 +53,9 @@ module.exports = (sequelize, DataType) => {
       allowNull: false
     },
     // 자소서
-    // intro: {
-    //   type: DataType.TEXT,
-    //   allowNull: false
-    // }
+    intro: {
+      type: DataType.TEXT,
+      allowNull: false
+    }
   });
 };

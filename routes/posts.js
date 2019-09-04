@@ -1,6 +1,7 @@
 let express = require("express");
 let {
   getAllPosts,
+  getPostsbyCategory,
   getPost,
   setPost,
   updatePost,
@@ -14,6 +15,11 @@ router.get("/getAllPosts", (req, res) => {
   console.log("[ ROUTER ] /getAllPosts  ");
   getAllPosts(req, res);
 });
+
+router.get("/getPostsbyCategory", (req, res)=>{
+  console.log("[ ROUTER ] /getPostsbyCategory  ");
+  getPostsbyCategory(req, res);
+})
 
 router.get("/getPost/:id", (req, res) => {
   console.log("[ ROUTER ] /getPost  ");
