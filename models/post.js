@@ -26,5 +26,5 @@ module.exports = (sequelize, DataType) => {
       allowNull: false,
       defaultValue: 0
     }
-  }, { timestamps: true, paranoid: true, underscored: true });
+  }, { timestamps: true, underscored: true });
 };
