@@ -9,17 +9,17 @@ let {
 } = require("../controller");
 
 let router = express.Router();
-console.log(["ROTUER-UPDATE"], router.update);
+// console.log(["ROTUER-UPDATE"], router.update);
 // 전체 게시물 조회
 router.get("/getAllPosts", (req, res) => {
   console.log("[ ROUTER ] /getAllPosts  ");
   getAllPosts(req, res);
 });
 
-router.get("/getPostsbyCategory", (req, res)=>{
+router.get("/getPostsbyCategory", (req, res) => {
   console.log("[ ROUTER ] /getPostsbyCategory  ");
   getPostsbyCategory(req, res);
-})
+});
 
 router.get("/getPost/:id", (req, res) => {
   console.log("[ ROUTER ] /getPost  ");
