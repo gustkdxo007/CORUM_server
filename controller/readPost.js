@@ -8,14 +8,7 @@ module.exports = async (req, res) => {
       where: { id: req.params.id }
     });
     let vcount = retrievedPost.dataValues.visit_count + 1;
-    await post.update(
-      {
-        visit_count: vcount
-      },
-      {
-        where: { id: req.params.id }
-      }
-    );
+    await post.update({ visit_count: vcount }, { where: { id: req.params.id } });
     delete retrievedPost.dataValues.visit_count;
     res.status(200).json(retrievedPost);
   } catch (err) {
@@ -23,9 +16,3 @@ module.exports = async (req, res) => {
     res.status(500).send("server Error");
   }
 };
-
-// let post = await post.find({
-//   attributes: ["contents", "category", "id"],
-//   where: { id: req.body.postId }
-// });
-// const hashtags = await post.getHashtags();

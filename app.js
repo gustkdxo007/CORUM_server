@@ -4,7 +4,7 @@ const express = require("express");
 const path = require("path");
 // const session = require("express-session");
 // const flash = require("connect-flash");
-const { posts, user } = require('./routes');
+const { post, user, hashtag } = require('./routes');
 const { sequelize } = require('./models')
 
 const app = express();
@@ -13,8 +13,9 @@ sequelize.sync();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 
-app.use(posts);
+app.use(post);
 app.use(user);
+app.use(hashtag);
 
 app.set("port", process.env.PORT || 3000);
 
