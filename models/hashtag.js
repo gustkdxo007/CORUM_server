@@ -1,17 +1,14 @@
 module.exports = (sequelize, DataType) => {
-  return sequelize.define(
-    "hashtag",
-    {
-      hashtag_name: {
-        type: DataType.TEXT,
-        allowNull: false
-      },
-      count: {
-        type: DataType.INTEGER,
-        allowNull: false,
-        defaultValue: 0
-      }
-    },
-    { timestamps: false, paranoid: false, underscored: true }
-  );
+  return sequelize.define("hashtag", {
+    name: {
+      type: DataType.STRING(30),
+      allowNull: false
+    }
+  }, { timestamps: false, underscored: true });
 };
+
+// count: {
+//   type: DataType.INTEGER,
+//   allowNull: false,
+//   defaultValue: 1
+// }

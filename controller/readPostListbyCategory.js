@@ -1,5 +1,4 @@
 let { user, post } = require("../models");
-const Sequelize = require("sequelize");
 module.exports = async (req, res) => {
   try {
     let postsByCategory = await post.findAll({
@@ -15,7 +14,7 @@ module.exports = async (req, res) => {
       include: [
         { model: user, require: false, attributes: ["nickname", "userImage"] }
       ],
-      where: { category: req.body.category }
+      where: { category: req.params.category }
     });
     res.status(200).json(postsByCategory);
   } catch (err) {

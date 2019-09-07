@@ -10,7 +10,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 // 참조 실행
-const { posts, user, auth } = require("./routes");
+const { post, user, auth } = require("./routes");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
@@ -41,7 +41,7 @@ app.use(flash()); // 일회성 메세지 보내줌
 app.use(passport.initialize()); // 미들웨어 , password  초기화, passport를 초기화해주면 user 정보가 req.user로 들어가게 된다.
 app.use(passport.session()); // local 로그인일때 세션
 
-app.use(posts);
+app.use(post);
 app.use(user);
 app.use(auth);
 
