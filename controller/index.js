@@ -1,11 +1,11 @@
 const controller = {};
-controller.getAllPostList = require("./getAllPostList");
-controller.getUserInfo = require("./getUserInfo");
-controller.getPost = require("./getPost");
+controller.readAllPostList = require("./readAllPostList");
+controller.readUserInfo = require("./readUserInfo");
+controller.readPost = require("./readPost");
 controller.createPostHashtag = require("./createPostHashtag");
 controller.updatePostHashtag = require("./updatePostHashtag");
 controller.deletePostHashtag = require("./deletePostHashtag");
-controller.getPostListbyCategory = require("./getPostListbyCategory");
-controller.getPostListbyHashtag = require("./getPostListbyHashtag");
-controller.getAllHashtagList = require("./getAllHashtagList");
+controller.readPostListbyCategory = require("./readPostListbyCategory");
+controller.readPostListbyHashtag = require("./readPostListbyHashtag");
+controller.readAllHashtagList = require("./readAllHashtagList");
 module.exports = controller;

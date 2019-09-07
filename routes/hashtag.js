@@ -1,13 +1,13 @@
 let express = require("express");
 let {
-  getAllHashtagList
+  readAllHashtagList
 } = require("../controller");
 
 let router = express.Router();
 // 전체 게시물 조회
-router.get("/getAllHashtagList", (req, res) => {
-  console.log("[ ROUTER ] /getHashtagList  ");
-  getAllHashtagList(req, res);
+router.get("/readAllHashtagList", (req, res) => {
+  console.log("[ ROUTER ] /readHashtagList  ");
+  readAllHashtagList(req, res);
 }); // clear
 
 module.exports = router;

@@ -1,9 +1,9 @@
 let express = require("express");
 let {
-  getAllPostList,
-  getPostListbyCategory,
-  getPostListbyHashtag,
-  getPost,
+  readAllPostList,
+  readPostListbyCategory,
+  readPostListbyHashtag,
+  readPost,
   createPostHashtag,
   updatePostHashtag,
   deletePostHashtag
@@ -11,24 +11,24 @@ let {
 
 let router = express.Router();
 // 전체 게시물 조회
-router.get("/getAllPostList", (req, res) => {
-  console.log("[ ROUTER ] /getAllPosts  ");
-  getAllPostList(req, res);
+router.get("/readAllPostList", (req, res) => {
+  console.log("[ ROUTER ] /readAllPosts  ");
+  readAllPostList(req, res);
 }); // clear
 
-router.get("/getPostListbyCategory/:category", (req, res)=>{
-  console.log("[ ROUTER ] /getPostListbyCategory/:category  ");
-  getPostListbyCategory(req, res);
+router.get("/readPostListbyCategory/:category", (req, res)=>{
+  console.log("[ ROUTER ] /readPostListbyCategory/:category  ");
+  readPostListbyCategory(req, res);
 });  //clear
 
-router.get("/getPostListbyHashtag/:tagname", (req, res)=>{
-  console.log("[ ROUTER ] /getPostListbyHashtag/:tagname  ");
-  getPostListbyHashtag(req, res);
+router.get("/readPostListbyHashtag/:tagname", (req, res)=>{
+  console.log("[ ROUTER ] /readPostListbyHashtag/:tagname  ");
+  readPostListbyHashtag(req, res);
 });
 
-router.get("/getPost/:id", (req, res) => {
-  console.log("[ ROUTER ] /getPost/:id  ");
-  getPost(req, res);
+router.get("/readPost/:id", (req, res) => {
+  console.log("[ ROUTER ] /readPost/:id  ");
+  readPost(req, res);
 });  //clear
 
 router.post("/createPostHashtag", (req, res) => {

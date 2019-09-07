@@ -5,18 +5,18 @@ module.exports = async (req, res) => {
     // 지울 게시글의 id를 params로 받고 그 아이디로 posthashtag 를 hashtag 와 leftjoin하여 값을 받아낸 후 
     // 그 hashtag를 돌면서 count가 1이면 제거, 1보다 크면 -1 하는 
 
-    let hashtag_to_be_updated = await posthashtag.findAll({
-      include: [{ model: hashtag, require: false, attributes: ["name", "count"] }],
-      where: { post_id: req.params.id }
-    })
-    console.log("[hashtag_to_be_updated]", hashtag_to_be_updated);
-    for (let obj of hashtag_to_be_updated) {
-      if (obj.hashtag.count > 1) {
-        await hashtag.update({ count: obj.hashtag.count - 1 });
-      } else if (obj.hashtag.count === 1) {
-        await hashtag.destroy({ where: { name: obj.hashtag.name } });
-      }
-    }
+    // let hashtag_to_be_updated = await posthashtag.findAll({
+    //   include: [{ model: hashtag, require: false, attributes: ["name", "count"] }],
+    //   where: { post_id: req.params.id }
+    // })
+    // console.log("[hashtag_to_be_updated]", hashtag_to_be_updated);
+    // for (let obj of hashtag_to_be_updated) {
+    //   if (obj.hashtag.count > 1) {
+    //     await hashtag.update({ count: obj.hashtag.count - 1 });
+    //   } else if (obj.hashtag.count === 1) {
+    //     await hashtag.destroy({ where: { name: obj.hashtag.name } });
+    //   }
+    // }
 
     await post.destroy({
       where: { id: req.params.id }

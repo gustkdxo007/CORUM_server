@@ -1,16 +1,16 @@
-// module.exports = (sequelize, DataType) => {
-//   return sequelize.define(
-//     "posthashtag",
-//     {
-//       hashtag_name: {
-//         type: DataType.STRING(30),
-//         onDelete: "CASCADE",
-//         onUpdate: null
-//       }
-//     },
-//     { timestamps: true, underscored: true }
-//   );
-// };
+module.exports = (sequelize, DataType) => {
+  return sequelize.define(
+    "posthashtag",
+    {
+      // hashtag_name: {
+      //   type: DataType.STRING(30),
+      //   onDelete: "CASCADE",
+      //   onUpdate: null
+      // }
+    },
+    { timestamps: true, underscored: true }
+  );
+};
 
 // post_id: {
 //   type: DataType.INTEGER(11),

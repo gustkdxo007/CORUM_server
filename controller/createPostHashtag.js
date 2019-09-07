@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
       category: req.body.category,
       poster: req.body.poster
     });
-
+  /*
     // console.log("last_inserted_post: ", last_inserted_post);
 
     // posthashtag 테이블 컬럼 중 hashtag_name의 on update cascade 옵션을 제거해야 한다.
@@ -21,12 +21,13 @@ module.exports = async (req, res) => {
         // if (!postsByHashtag) {  //그 게시물의 그 해시태그 조합인 로우가 PostHashtag 테이블에 없으면 해시태그 업데이트와 추가 작업을 한다.
         if (hashtag_found) {
           // 해시태그 테이블에 등록된적이 있는 해시태그면
-          let hashtag_updated = await hashtag.create(
-            { count: hashtag_found.dataValues.count + 1 },
-            { where: { name: element } }
-          ); // 해시태그 테이블에서 카운트 + 1 한다.
+
+          // let hashtag_updated = await hashtag.create(
+          //   { count: hashtag_found.dataValues.count + 1 },
+          //   { where: { name: element } }
+          // ); // 해시태그 테이블에서 카운트 + 1 한다.
           // hashtag_updated 에는 업데이트 된 로우의 업데이트 된 속성만 가지고 온다.
-          await hashtag_found.setPosts(last_inserted_post.dataValues.id); // Posthashtag 테이블에 post테이블의 id와 hashtag테이블의 hashtagname을 값으로 가지는 로우를 생성함.
+          // await hashtag_found.setPosts(last_inserted_post.dataValues.id); // Posthashtag 테이블에 post테이블의 id와 hashtag테이블의 hashtagname을 값으로 가지는 로우를 생성함.
           // await posthashtag.create({
           //   post_id: last_inserted_post.dataValues.id,
           //   hashtag_name: element
@@ -61,8 +62,10 @@ module.exports = async (req, res) => {
               return add_hashtag(el);
             })
         )
-      ).then(result => res.status(200).send("Success"));
+      ).then(result => res.status(200).send("Success"))
     }
+  */
+    res.status(200).send("Success");
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");

@@ -1,10 +1,10 @@
 let express = require('express');
-let { getUserInfo } = require('../controller');
+let { readUserInfo } = require('../controller');
 let router = express.Router();
 
-router.get('/user', (req, res) => {
+router.get('/readUserInfo', (req, res) => {
   console.log('router get /user  ');
-  getUserInfo(req, res);
+  readUserInfo(req, res);
 });
 
 module.exports = router;
