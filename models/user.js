@@ -2,6 +2,7 @@
 
 module.exports = (sequelize, DataType) => {
   return sequelize.define("user", {
+    // 아이디
     userId: {
       type: DataType.STRING(40),
       allowNull: false,
@@ -9,28 +10,33 @@ module.exports = (sequelize, DataType) => {
     },
     // 이름
     name: {
-      type: DataType.STRING(10),
-      allowNull: false
+      type: DataType.STRING(30),
+      allowNull: true
     },
     // 닉네임
     nickname: {
-      type: DataType.STRING(10),
+      type: DataType.STRING(30),
+      allowNull: false
+    },
+    // 비번
+    password: {
+      type: DataType.STRING,
       allowNull: false
     },
     // 성별
     gender: {
       type: DataType.STRING(10),
-      allowNull: false
+      allowNull: true
     },
     // 깃허브 주소
     github_addr: {
       type: DataType.STRING(40),
-      allowNull: false
+      allowNull: true
     },
     // 구글 주소
     contact_email: {
       type: DataType.STRING(40),
-      allowNull: false
+      allowNull: true
     },
     // 기수
     gitsu: {
@@ -39,23 +45,24 @@ module.exports = (sequelize, DataType) => {
     },
     // 이미지
     userImage: {
-      type: DataType.BLOB(),
-      allowNull: true
+      type: DataType.STRING,
+      allowNull: false,
+      defaultValue: "../nori.png"
     },
     // 기술정보
     tech: {
       type: DataType.STRING(200),
-      allowNull: false
+      allowNull: true
     },
     // 나의 회사
     company: {
       type: DataType.STRING(20),
-      allowNull: false
+      allowNull: true
     },
     // 자소서
     intro: {
       type: DataType.TEXT,
-      allowNull: false
+      allowNull: true
     }
   });
 };
