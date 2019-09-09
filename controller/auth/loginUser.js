@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
   try {
     let { userId, password } = req.body;
     password = hash(password);
-    console.log(password);
+    // console.log(password);
     const payload = {
-      userId,
-      password
+      userId
+      // exp: Math.floor(Date.now() / 1000 + 60 * 15) // 15분 만료시간 주기
     };
     const check = value => {
       if (!value) {
@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
         if (value.dataValues.password === password) {
           // create a promise that generates jwt asynchronously
           let token = generateToken(payload);
+          console.log("token: ", token);
           res.cookie("access_token", token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 1
@@ -34,14 +35,17 @@ module.exports = async (req, res) => {
     const respond = token => {
       res.json({
         message: "LOGIN SUCCESS",
+        userId,
         token
       });
     };
 
     const onError = error => {
-      res.status(403).json({
-        message: error.message
-      });
+      console.log(error.message);
+      // res.status(403).json({
+      //   message: error.message
+      // });
+      res.status(403).send("authentication error");
     };
 
     // TODO: find by username

@@ -26,12 +26,12 @@ db.posthashtag = require("./posthashtag")(sequelize, Sequelize);
 다 대 다 (belongsToMany)
 */
 db.user.hasMany(db.post, {
-  foreignKey: "poster"
+  foreignKey: "userId"
   // souceKey: "id"
 });
 
 db.post.belongsTo(db.user, {
-  foreignKey: "poster",
+  foreignKey: "userId",
   targetKey: "userId"
 });
 
