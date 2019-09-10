@@ -3,6 +3,7 @@ controller.readAllPostList = require("./readAllPostList");
 controller.readUserInfo = require("./readUserInfo");
 controller.readPost = require("./readPost");
 controller.createPostHashtag = require("./createPostHashtag");
+controller.updateUserInfo = require("./updateUserInfo");
 controller.updatePostHashtag = require("./updatePostHashtag");
 controller.deletePostHashtag = require("./deletePostHashtag");
 controller.readPostListbyCategory = require("./readPostListbyCategory");

@@ -1,4 +1,4 @@
-let { hashtag } = require("../models");
+let { posthashtag, hashtag } = require("../models");
 
 module.exports = async (req, res) => {
   try {
