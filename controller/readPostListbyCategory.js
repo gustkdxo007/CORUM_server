@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         "like_count"
       ],
       include: [
-        { model: user, require: false, attributes: ["nickname", "userImage"] }
+        { model: user, required: false, attributes: ["nickname", "userImage"] }
       ],
       where: { category: req.params.category }
     });

@@ -6,7 +6,7 @@ let {
 let router = express.Router();
 // 전체 게시물 조회
 router.get("/readAllHashtagList", (req, res) => {
-  console.log("[ ROUTER ] /readHashtagList  ");
+  console.log("[ ROUTER ] /readAllHashtagList  ");
   readAllHashtagList(req, res);
 }); // clear
 

@@ -8,15 +8,9 @@ module.exports = async (req, res) => {
     const token = req.body.access_token;
     jwt.verify(token, secret, async (err, decoded) => {
       if (err) {
-        res.status(401).send({
-          success: false,
-          message: "unauthorized"
-        });
+        throw new Error("decoding error");
       } else if (Date.now() < decoded.exp) {
-        res.status(401).send({
-          success: false,
-          message: "time out"
-        });
+        throw new Error('expired token');
       } else if (req.body.userId === decoded.userId) {
         let password = undefined;
         req.body.password ? password = hash(req.body.password) : null;
@@ -37,12 +31,12 @@ module.exports = async (req, res) => {
         });
         res.status(200).json("Success");
       } else {
-        throw new Error("invalid body");
+        throw new Error("unauthorized");
       }
     });
 
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server Error");
+    res.status(500).send("Server Error");
   }
 };

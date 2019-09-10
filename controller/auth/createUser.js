@@ -34,12 +34,18 @@ module.exports = async (req, res) => {
 
     // TODO: createToken
     const createToken = async account => {
-      let token = await generateToken(payload);
-      res.cookie("access_token", token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 1
-      });
-      res.status(200).send(account);
+      // let access_token = await generateToken(payload);
+      // res.cookie("access_token", token, {
+      //   httpOnly: true,
+      //   maxAge: 1000 * 60 * 60 * 24 * 1
+      // }); 로컬 스토리지로 토큰 관리 중, 추후 쿠키 방식 이용시 부활 필요
+      res.status(200).send(
+        'Success'
+        // {
+        //   userId: account.userId,
+        //   access_token: access_token
+        // }
+      );
     };
 
     // TODO: 실행

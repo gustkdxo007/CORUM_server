@@ -1,63 +1,72 @@
 const secret = process.env.JWT_SECRET;
 const jwt = require("jsonwebtoken");
-let { hashtag, post, posthashtag } = require("../models");
+let { hashtag, post } = require("../models");
 
 module.exports = async (req, res) => {
   try {
-    // 지울 게시글의 id를 params로 받고 그 아이디로 posthashtag 를 hashtag 와 leftjoin하여 값을 받아낸 후
-    // 그 hashtag를 돌면서 count가 1이면 제거, 1보다 크면 -1 하는
-
-    // let hashtag_to_be_updated = await posthashtag.findAll({
-    //   include: [{ model: hashtag, require: false, attributes: ["name", "count"] }],
-    //   where: { post_id: req.params.id }
-    // })
-    // console.log("[hashtag_to_be_updated]", hashtag_to_be_updated);
-    // for (let obj of hashtag_to_be_updated) {
-    //   if (obj.hashtag.count > 1) {
-    //     await hashtag.update({ count: obj.hashtag.count - 1 });
-    //   } else if (obj.hashtag.count === 1) {
-    //     await hashtag.destroy({ where: { name: obj.hashtag.name } });
-    //   }
-    // }
     const token = req.body.access_token;
     jwt.verify(token, secret, async (err, decoded) => {
       if (err) {
-        res.status(401).send({
-          success: false,
-          message: "unauthorized"
-        });
+        throw new Error("decoding error");
       } else if (Date.now() < decoded.exp) {
-        res.status(401).send({
-          success: false,
-          message: "time out"
-        });
+        throw new Error('expired token');
       } else if (req.body.userId === decoded.userId) {
         let retrievedPost = await post.findOne({
           attributes: ["userId"],
           where: { id: req.params.id }
         });
 
-        if(retrievedPost.dataValues.userId === req.body.userId){
+        if (retrievedPost.dataValues.userId === req.body.userId) {
           await post.destroy({
             where: { id: req.params.id }
           });
-          res.status(200).send("Deleted");
+
+          async function check_hashtag_array(element) {
+            let hashtag_to_be_modified = await hashtag.findOne({
+              where: { name: element }
+            });
+
+            if (hashtag_to_be_modified) {
+              if (hashtag_to_be_modified.dataValues.count > 1) {
+                hashtag.update({
+                  count: hashtag_to_be_modified.dataValues.count - 1
+                }, {
+                  where: { name: element }
+                })
+              } else if (hashtag_to_be_modified.dataValues.count === 1) {
+                hashtag.destroy({
+                  where: { name: element }
+                })
+              }
+            }
+          }
+
+          if (Array.isArray(req.body.hashtag)) {
+            await Promise.all(
+              req.body.hashtag.map(
+                el =>
+                  new Promise((resolve, reject) => {
+                    resolve();
+                    return check_hashtag_array(el);
+                  })
+              )
+            ).then(result => res.status(200).send("Deleted"))
+              .catch(err => { throw new Error(err.message) });
+          } else {
+            res.status(200).send("Deleted");
+          }
+
+
         } else {
-          res.status(401).send({
-            success: false,
-            message: "does not have right to delete this post"
-          });
+          throw new Error("unauthorized");
         }
-      } else {
-        throw new Error("invalid body");
       }
-    });
+    }); // verify end
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server Error");
-  }
-};
-
+    res.status(500).send("Server Error");
+  };
+}
 // 이하의 백업 기능은 시간상 추후 구현
 // 지우는 날짜만 추가됨
 // 주기적으로 delete_at 날짜와 현재 날짜의 차이가 일정량 이상인

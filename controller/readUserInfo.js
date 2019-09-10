@@ -7,21 +7,15 @@ module.exports = async (req, res) => {
     const token = req.body.access_token;
     jwt.verify(token, secret, async (err, decoded) => {
       if (err) {
-        res.status(401).send({
-          success: false,
-          message: "unauthorized"
-        });
+        throw new Error('decoding error');
       } else if (Date.now() < decoded.exp) {
-        res.status(401).send({
-          success: false,
-          message: "time out"
-        });
+        throw new Error('expired token');
       } else if (req.body.userId === decoded.userId) {
         let retrievedUser = await user.findOne({
           where: { userId: req.body.userId }
         });
 
-        if(retrievedUser.dataValues.userId === req.body.userId){
+        if (retrievedUser.dataValues.userId === req.body.userId) {
           let result = await user.findOne({
             attributes: [
               "userId",
@@ -42,17 +36,14 @@ module.exports = async (req, res) => {
           });
           res.status(200).json(result);
         } else {
-          res.status(401).send({
-            success: false,
-            message: "does not have right to read this user"
-          });
+          throw new Error("does not have right to read this user");
         }
       } else {
-        throw new Error("invalid body");
+        throw new Error("unauthorized");
       }
     });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server Error");
+    res.status(500).send("Server Error");
   }
 };

@@ -2,11 +2,12 @@ let { user, post, hashtag } = require("../models");
 
 module.exports = async (req, res) => {
   try {
-    // 조회
     let retrievedPost = await post.findOne({
       attributes: ["contents", "category", "id", "visit_count"],
-      where: { id: req.params.id }
+      where: { id: req.params.id },
+      include: { model: hashtag, required: false, attributes: ["name"]}
     });
+
     let vcount = retrievedPost.dataValues.visit_count + 1;
     await post.update({ visit_count: vcount }, { where: { id: req.params.id } });
     delete retrievedPost.dataValues.visit_count;
