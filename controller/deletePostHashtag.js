@@ -19,12 +19,8 @@ module.exports = async (req, res) => {
     //     await hashtag.destroy({ where: { name: obj.hashtag.name } });
     //   }
     // }
-    const token = req.cookies.access_token;
-    console.log("----------------------------------------------1");
+    const token = req.body.access_token;
     jwt.verify(token, secret, async (err, decoded) => {
-      console.log("-------------------------------2");
-      console.log("req.body.userId: ", req.body.userId);
-      console.log("decoded.userId: ", decoded.userId);
       if (err) {
         res.status(401).send({
           success: false,
@@ -36,11 +32,22 @@ module.exports = async (req, res) => {
           message: "time out"
         });
       } else if (req.body.userId === decoded.userId) {
-        console.log("----------------------------------------3");
-        await post.destroy({
+        let retrievedPost = await post.findOne({
+          attributes: ["userId"],
           where: { id: req.params.id }
         });
-        res.status(200).send("Deleted");
+
+        if(retrievedPost.dataValues.userId === req.body.userId){
+          await post.destroy({
+            where: { id: req.params.id }
+          });
+          res.status(200).send("Deleted");
+        } else {
+          res.status(401).send({
+            success: false,
+            message: "does not have right to delete this post"
+          });
+        }
       } else {
         throw new Error("invalid body");
       }
@@ -49,7 +56,6 @@ module.exports = async (req, res) => {
     console.log(err.message);
     res.status(500).send("server Error");
   }
-  console.log("------------------------5");
 };
 
 // 이하의 백업 기능은 시간상 추후 구현

@@ -4,7 +4,7 @@ const secret = process.env.JWT_SECRET;
 
 module.exports = async (req, res) => {
   try {
-    const token = req.cookies.access_token;
+    const token = req.body.access_token;
     jwt.verify(token, secret, async (err, decoded) => {
       if (err) {
         res.status(401).send({
@@ -17,18 +17,29 @@ module.exports = async (req, res) => {
           message: "time out"
         });
       } else if (req.body.userId === decoded.userId) {
-        await post.update(
-          {
+        let retrievedPost = await post.findOne({
+          attributes: ["userId"],
+          where: { id: req.params.id }
+        });
+
+        if(retrievedPost.dataValues.userId === req.body.userId){
+          await post.update({
             title: req.body.title,
             subTitle: req.body.subTitle,
             contents: req.body.contents,
             category: req.body.category
-          },
-          {
+          }, {
             where: { id: req.params.id }
-          }
-        );
-        res.status(200).send("Updated");
+          });
+          res.status(200).send("Updated");
+        } else {
+          res.status(401).send({
+            success: false,
+            message: "does not have right to modify this post"
+          });
+        }
+      } else {
+        throw new Error("invalid body");
       }
     });
   } catch (err) {
