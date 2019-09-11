@@ -21,8 +21,8 @@ router.get("/readPostListbyCategory/:category", (req, res)=>{
   readPostListbyCategory(req, res);
 });  //clear
 
-router.get("/readPostListbyHashtag/:tagname", (req, res)=>{
-  console.log("[ ROUTER ] /readPostListbyHashtag/:tagname  ");
+router.get("/readPostListbyHashtag/:id", (req, res)=>{
+  console.log("[ ROUTER ] /readPostListbyHashtag/:id  ");
   readPostListbyHashtag(req, res);
 });
 
@@ -34,16 +34,16 @@ router.get("/readPost/:id", (req, res) => {
 router.post("/createPostHashtag", (req, res) => {
   console.log("[ ROUTER ] /createPostHashtag  ");
   createPostHashtag(req, res);
-});
+}); // clear
 
 router.patch("/updatePostHashtag/:id", (req, res) => {
   console.log("[ ROUTER ] /updatePostHashtag/:id  ");
   updatePostHashtag(req, res);
-}); // on delete cascade 옵션이 posthashtag table에 잘 실행되는지 확인해야함
+}); // clarifyArray 를 통해 추가해야되는 해시태그와 삭제해야되는 해시태그를 posthashtag table에서 제거, 생성
 
 router.delete("/deletePostHashtag/:id", (req, res) => {
   console.log("[ ROUTER ] /deletePostHashtag/:id  ");
   deletePostHashtag(req, res);
-}); // on delete cascade 옵션이 posthashtag table에 잘 실행되는지 확인해야함
+}); // clear
 
 module.exports = router;

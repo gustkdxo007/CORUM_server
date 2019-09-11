@@ -1,7 +1,7 @@
 let { user, post, hashtag } = require("../models");
 module.exports = async (req, res) => {
   try {
-    const tag = await hashtag.find({ where: { name: req.params.tagname } });
+    const tag = await hashtag.findOne({ where: { id: req.params.id } });
     const postsByHashtag = await tag.getPosts({
       attributes: [
         "id",
@@ -13,28 +13,13 @@ module.exports = async (req, res) => {
         "like_count"
       ],
       include: [
-        { model: user, require: false, attributes: ["nickname", "userImage"] }
+        { model: user, required: false, attributes: ["nickname", "userImage"] }
       ],
     });
 
-    // let postsByCategory = await post.findAll({
-    //   attributes: [
-    //     "id",
-    //     "title",
-    //     "subTitle",
-    //     "createdAt",
-    //     "updatedAt",
-    //     "visit_count",
-    //     "like_count"
-    //   ],
-    //   include: [
-    //     { model: user, require: false, attributes: ["nickname", "userImage"] }
-    //   ],
-    //   where: { category: req.body.category }
-    // });
     res.status(200).json(postsByHashtag);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server Error");
+    res.status(500).send("Server Error");
   }
 };

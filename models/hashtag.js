@@ -3,12 +3,11 @@ module.exports = (sequelize, DataType) => {
     name: {
       type: DataType.STRING(30),
       allowNull: false
+    },
+    count: {
+      type: DataType.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     }
   }, { timestamps: false, underscored: true });
 };
-
-// count: {
-//   type: DataType.INTEGER,
-//   allowNull: false,
-//   defaultValue: 1
-// }

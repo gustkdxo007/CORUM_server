@@ -13,12 +13,12 @@ module.exports = async (req, res) => {
         "like_count"
       ],
       include: [
-        { model: user, require: false, attributes: ["nickname", "userImage"] }
+        { model: user, required: false, attributes: ["nickname", "userImage"] }
       ]
     });
     res.status(200).json(allPosts);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server Error");
+    res.status(500).send("Server Error");
   }
 };

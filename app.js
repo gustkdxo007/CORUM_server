@@ -6,7 +6,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 // 참조 실행
-const { post, user, auth } = require("./routes");
+const { post, user, hashtag, auth } = require("./routes");
 const { sequelize } = require("./models");
 const { jwtMiddleware } = require("./controller/auth");
 
@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
   res.send("CORUM PROJECT START");
 });
 
+app.use(hashtag);
 app.use(post);
 app.use(user);
 app.use("/api", require("./routes/api"));
